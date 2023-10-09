@@ -6,7 +6,7 @@
         {
             restart:
             Console.WriteLine("Metni daxil edin:");
-            string input = Console.ReadLine().ToLower().Trim();
+            string input = Console.ReadLine();
             string[] words = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
             string result = "";
             if (input.Length <= 0)

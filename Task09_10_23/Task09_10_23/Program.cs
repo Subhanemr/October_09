@@ -1,25 +1,70 @@
-﻿namespace Task09_10_23
+using System.Globalization;
+using System.Text;
+
+namespace Task09_10_23
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            restart:
-            Console.WriteLine("Metni daxil edin:");
+            //Metod 1
+            //restart:
+            //Console.WriteLine("Metni daxil edin:");
+            //string input = Console.ReadLine();
+            //string[] words = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            //string result = "";
+            //if (input.Length <= 0)
+            //{
+            //    Console.WriteLine("Sehv input daxil edibsiz");
+            //    goto restart;
+            //}
+            //foreach (string word in words)
+            //{
+            //    result += Capitalize(word) + " ";
+            //}
+            //Console.WriteLine(result);
+
+            //Metod 2
+            Console.WriteLine("Enter a sentence:");
             string input = Console.ReadLine();
-            string[] words = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-            string result = "";
-            if (input.Length <= 0)
+            string formattedSentence = FormatSentence(input);
+            Console.WriteLine("Formatlashdirilmish: " + formattedSentence);
+
+        }
+
+        //Metod 2
+        public static string FormatSentence(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+                return string.Empty;
+
+            input = input.Trim();
+            while (input.Contains("  "))
             {
-                Console.WriteLine("Sehv input daxil edibsiz");
-                goto restart;
+                input = input.Replace("  ", " ");
             }
+
+            string[] words = input.Split(' ');
+
+            if (words.Length == 0)
+                return string.Empty;
+
+            StringBuilder formattedSentence = new StringBuilder();
+
             foreach (string word in words)
             {
-                result += Capitalize(word) + " ";
+                if (!string.IsNullOrWhiteSpace(word))
+                {
+                    formattedSentence.Append(char.ToUpper(word[0]) + word.Substring(1).ToLower() + " ");
+                }
             }
-            Console.WriteLine(result);
+
+            formattedSentence.Length--;
+
+            return formattedSentence.ToString();
         }
+
+        //Metod 1
         static string Capitalize(string word)
         {
             char[] chars = word.ToLower().ToCharArray();
